@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% comment %} Display the active list item that belong to selected category {% endcomment %}
+
+{% block body %}
+
+    <h2>Category: {{ category }}</h2>
+
+    <div class="row ml-2">
+        {% for listing in listings %}
+            {% if listing.is_active %}
+                <div class="col-sm-3 mt-5">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{listing.image_url}}" alt="{{ listing.title }}">
+                        <hr>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text">{{ listing.description }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Price: {{ listing.initial_bid }}</li>
+                            <li class="list-group-item">Category: {{ listing.category }}</li>
+                            <li class="list-group-item">Created: {{ listing.created }}</li>
+                        </ul>
+                        <div class="card-footer">
+                            <a href="{% url 'list' listing.id %}" class = "stretched-link">See Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <ul>
+                <li>No Active Listings.</li>
+            </ul>
+        {% endfor %}
+    </div>
+
+{% endblock %}

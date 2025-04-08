@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Categories</h2>
+
+    {% if user.is_authenticated %}
+
+        {% comment %} Message to user if category was created or not {% endcomment %}
+        <div class="col-sm-2">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role ="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% comment %} Form to create new category {% endcomment %}
+        <form actions="{% url 'category' %}" id="category" method ="post">
+            {% csrf_token %}
+            <div class="row ml-3">
+                <div class="col mt-4">
+                    <div class="form-group">
+                        {{form.as_p}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ml-4">
+                <input type="Submit" class="btn btn-primary" value="Add">
+            </div>
+        </form>
+        <br>
+    {% endif %}
+
+    {% comment %} Display current list of categories {% endcomment %}
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'categorylist' category.id %}">{{ category }}</a></li>
+        {% empty %}
+            <li>No Category Exist</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "auctions/layout.html" %}
+
+{% comment %} Display a particular listing {% endcomment %}
+
+{% block body %}
+
+    {% comment %} Let user know if Listing is no longer Active {% endcomment %}
+    {% if not listing.is_active %}
+        <h3>Listing is no longer active.</h3>
+        <br>
+    {% endif %}
+
+    {% comment %} Display bid success, bid not-successful and user won the bid message {% endcomment %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role ="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% comment %} Listing Detail {% endcomment %}
+    <div class="col-4 mt-3">
+        <div class="card">
+            <h5 class="card-header">{{ listing.title }}</h5>
+            <div class="card-body">
+                <img class="card-img-top" src="{{listing.image_url}}" alt="{{ listing.title }}">
+                <hr>
+                <p class ="card-text mt-4">{{listing.description}}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Listed Price: {{ listing.initial_bid }}</li>
+                    <li class="list-group-item">Highest Bid: {{ max_bid  }}</li>
+                    <li class="list-group-item">Category: {{ listing.category }}</li>
+                    <li class="list-group-item">Created: {{ listing.created }}</li>
+                    
+                    {% comment %} Close list {% endcomment %}
+                    {% if user == listing.seller %}
+                        {% if listing.is_active %}
+                            <li class="list-group-item">
+                                <div class="col-4 mt-3">
+                                    <form action="{% url 'list' listing.id %}" id="close" method ="post">
+                                        {% csrf_token %}
+                                        <input type="Submit" class="btn btn-danger" name="close" value="Close Listing">
+                                    </form>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% comment %} Watchlist {% endcomment %}
+                    {% if user.is_authenticated %}
+                        <li class="list-group-item">
+                            <div class="col-4 mt-3">
+                                <form action="{% url 'watchlist_add' listing.id %}" id="add_watch" method ="post">
+                                    {% csrf_token %}
+                                    {% if user_watch %}
+                                        <input type="Submit" class="btn btn-info" name="add_watch" value="Add to Watchlist">
+                                    {% else %}
+                                        <input type="Submit" class="btn btn-info" name="add_watch" value="Remove from Watchlist">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                {% comment %} Comment list {% endcomment %}
+                <div class="card-footer">
+                    <h5>Comments:</h5>
+                    {% for comment in comments %}
+                        <li class="list-group-item">{{ comment.user.username }}: {{ comment.comments }}</li>
+                    {% empty %}
+                        <li class="list-group-item">No Comments</li>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} Bids {% endcomment %}
+    <div class="col-4 mt-4">
+        <div class="card">
+            <h5 class="card-header">Bids</h5>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                 Highest Bid: {{ max_bid }}
+            </li>
+            {% if listing.is_active %}
+                {% if user.is_authenticated and listing.seller != user %}
+                    <form action="{% url 'bid' listing.id %}" id="bid" method ="post">  
+                        <li class="list-group-item">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {% for field in form_bid %}
+                                    {{ field }}
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <input type="Submit" class="btn btn-primary" value="Place Bid">
+                            </div>
+                        </li>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% comment %} Adding Comment {% endcomment %}
+    {% if listing.is_active %}
+        {% if user.is_authenticated %}
+            <div class="col-4 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{% url 'listcomment' listing.id %}" id="comment" method ="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {% for field in form_comment %}
+                                    {{ field }}
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <input type="Submit" class="btn btn-primary" value="Add Comment">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+FORM CUSTOMIZATION
+
+Adding validation rules:
+https://django.cowhite.com/blog/django-form-validation-and-customization-adding-your-own-validation-rules/
+
+MODEL
+
+many-to-many feild:
+https://books.agiliq.com/projects/django-orm-cookbook/en/latest/many_to_many.html
+https://www.revsys.com/tidbits/tips-using-djangos-manytomanyfield/
+
+QUERY SET
+
+Aggregate Max
+https://micropyramid.com/blog/aggregation-in-django-minumum-and-maximum-values-from-django-model/
+https://docs.djangoproject.com/en/3.0/topics/db/aggregation/
+https://docs.djangoproject.com/en/3.0/ref/models/expressions/
+
+Filter
+https://chartio.com/resources/tutorials/how-to-filter-for-empty-or-null-values-in-a-django-queryset/
+
