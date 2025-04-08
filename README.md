@@ -17,11 +17,11 @@ A Django-based eBay-like auction site where users can post listings, place bids,
 
 ## 📸 Screenshots
 
-<img src="https://github.com/apiyarali/e-commerce/blob/ba2a92bb81992198333e8079f81648301706631f/screenshot/main.jpg" alt="wiki_main" width="400">
+<img src="https://github.com/apiyarali/e-commerce/blob/ba2a92bb81992198333e8079f81648301706631f/screenshot/main.jpg" alt="ecommerce_main" width="400">
 
-<img src="https://github.com/apiyarali/e-commerce/blob/ba2a92bb81992198333e8079f81648301706631f/screenshot/listing_card.jpg" width="400">
+<img src="https://github.com/apiyarali/e-commerce/blob/ba2a92bb81992198333e8079f81648301706631f/screenshot/listing_card.jpg" alt="listing_card" width="400">
 
-<img src="https://github.com/apiyarali/e-commerce/blob/ba2a92bb81992198333e8079f81648301706631f/screenshot/details.jpg" width="400">
+<img src="https://github.com/apiyarali/e-commerce/blob/ba2a92bb81992198333e8079f81648301706631f/screenshot/details.jpg" alt="details" width="400">
 
 ## 🛠 Getting Started
 
