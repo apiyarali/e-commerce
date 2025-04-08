@@ -80,6 +80,5 @@ python manage.py runserver
 * Frontend: HTML, CSS (customizable)
 * Database: SQLite (default with Django)
 
-## 📄 Acknowledgements
-
-This project is a part of Harvard's CS33 Web Programming course.
+## Inspiration
+Project inspired by Harvard's CS33 Web Programming curriculum.
